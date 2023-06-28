@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,13 +14,22 @@ import javax.persistence.*;
 public class BookCopy {
     @Id
     @GeneratedValue
-    private int id;
-    @Column(name = "BOOK_ID")
-    private int bookId;
+    private long id;
+    @OneToMany(
+            targetEntity = Loan.class,
+            mappedBy = "bookCopy",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Loan> loanList;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "BOOK_ID")
+    private Book book;
     @Column(name = "STATUS")
-    private Status status;
-//    @ManyToOne
-//    @JoinColumn(name = "BOOK_ID")
-//    private Book book;
+    private String status;
 
+    public BookCopy(Book book, String status) {
+        this.book = book;
+        this.status = status;
+    }
 }

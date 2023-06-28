@@ -14,11 +14,22 @@ import java.time.LocalDate;
 public class Loan {
     @Id
     @GeneratedValue
-    private int id;
-    @Column(name = "READER_ID")
-    private int readerId;
+    private long id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "READER_ID")
+    private Reader reader;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "BOOK_COPY_ID")
+    private BookCopy bookCopy;
     @Column(name = "LOAN_DATE")
     private LocalDate loanDate;
     @Column(name = "RETURN_DATE")
     private LocalDate returnDate;
+
+    public Loan(BookCopy bookCopy, Reader reader, LocalDate loanDate) {
+        this.bookCopy = bookCopy;
+        this.reader = reader;
+        this.loanDate = loanDate;
+    }
+
 }

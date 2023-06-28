@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BookCopyDto {
-    private int id;
+    private long id;
     private int titleId;
     private Status status;
 }

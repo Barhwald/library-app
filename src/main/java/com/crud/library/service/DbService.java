@@ -1,5 +1,6 @@
 package com.crud.library.service;
 
+import com.crud.library.controller.ReaderNotFoundException;
 import com.crud.library.domain.Book;
 import com.crud.library.domain.BookCopy;
 import com.crud.library.domain.Loan;
@@ -25,9 +26,9 @@ public class DbService {
         return bookRepository.save(book);
     }
 
-//    public int getNumberOfCopies(final Book book) {
-//        return bookRepository.countByBookCopies(book);
-//    }
+    public int getNumberOfCopies(final Book book) {
+        return bookRepository.countByBookCopies(book);
+    }
 
     public BookCopy saveBookCopy(final BookCopy bookCopy) {
         return bookCopyRepository.save(bookCopy);
@@ -41,7 +42,9 @@ public class DbService {
         return readerRepository.findAll();
     }
 
-    public Reader getReader(long id) throws
+    public Reader getReader(long id) throws ReaderNotFoundException {
+        return readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
+    }
     public Loan saveLoan(final Loan loan) {
         return loanRepository.save(loan);
     }

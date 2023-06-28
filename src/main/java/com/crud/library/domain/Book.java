@@ -19,16 +19,19 @@ public class Book {
     private String title;
     @Column(name = "AUTHOR")
     private String author;
-    @Column(name = "ISSUE_YEAR")
+    @Column(
+            name = "ISSUE_YEAR"
+    )
     private int issueYear;
 
-//    @OneToMany(
-//            targetEntity = BookCopy.class,
-//            mappedBy = "book",
-//            cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY
-//    )
-//    private List<BookCopy> bookCopies;
+    @OneToMany(
+            targetEntity = BookCopy.class,
+            mappedBy = "book",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<BookCopy> bookCopies;
+
     public Book(String title, String author, int issueYear) {
         this.title = title;
         this.author = author;

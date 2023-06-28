@@ -26,7 +26,7 @@ public class ReaderController {
     }
 
     @GetMapping(value = "{readerId}")
-    public ResponseEntity<ReaderDto> getReader(@PathVariable Long readerId) {
+    public ResponseEntity<ReaderDto> getReader(@PathVariable Long readerId) throws ReaderNotFoundException {
         return ResponseEntity.ok(readerMapper.mapToReaderDto(dbService.getReader(readerId)));
     }
 }
