@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,14 +14,12 @@ public class BookCopy {
     @Id
     @GeneratedValue
     private int id;
-
     @Column(name = "BOOK_ID")
     private int bookId;
     @Column(name = "STATUS")
     private Status status;
-
     @ManyToOne
-    @JoinColumn(name = "")
+    @JoinColumn(name = "BOOK_ID")
     private Book book;
 
 }

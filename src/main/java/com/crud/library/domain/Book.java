@@ -1,10 +1,11 @@
 package com.crud.library.domain;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,11 +21,17 @@ public class Book {
     private String author;
     @Column(name = "ISSUE_YEAR")
     private int issueYear;
+
     @OneToMany(
             targetEntity = BookCopy.class,
-            mappedBy =
+            mappedBy = "book",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "COPIES")
-    private BookCopy bookCopy;
-
+    private List<BookCopy> bookCopies;
+    public Book(String title, String author, int issueYear) {
+        this.title = title;
+        this.author = author;
+        this.issueYear = issueYear;
+    }
 }
