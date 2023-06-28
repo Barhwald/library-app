@@ -1,10 +1,10 @@
 package com.crud.library.domain;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
@@ -14,7 +14,7 @@ import java.util.List;
 public class Book {
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
     @Column(name = "TITLE")
     private String title;
     @Column(name = "AUTHOR")
@@ -22,13 +22,13 @@ public class Book {
     @Column(name = "ISSUE_YEAR")
     private int issueYear;
 
-    @OneToMany(
-            targetEntity = BookCopy.class,
-            mappedBy = "book",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    private List<BookCopy> bookCopies;
+//    @OneToMany(
+//            targetEntity = BookCopy.class,
+//            mappedBy = "book",
+//            cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY
+//    )
+//    private List<BookCopy> bookCopies;
     public Book(String title, String author, int issueYear) {
         this.title = title;
         this.author = author;

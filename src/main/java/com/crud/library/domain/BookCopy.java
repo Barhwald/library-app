@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,8 +18,8 @@ public class BookCopy {
     private int bookId;
     @Column(name = "STATUS")
     private Status status;
-    @ManyToOne
-    @JoinColumn(name = "BOOK_ID")
-    private Book book;
+//    @ManyToOne
+//    @JoinColumn(name = "BOOK_ID")
+//    private Book book;
 
 }
