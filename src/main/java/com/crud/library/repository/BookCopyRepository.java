@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+@Transactional
 @Repository
 public interface BookCopyRepository extends CrudRepository<BookCopy, Long> {
     @Override
     BookCopy save(BookCopy bookCopy);
 
-    @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update BOOK_COPIES" +
             " set status = :newStatus " +
             " where id=:id")
