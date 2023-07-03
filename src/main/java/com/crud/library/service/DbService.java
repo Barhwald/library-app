@@ -12,6 +12,7 @@ import com.crud.library.repository.ReaderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,8 +27,13 @@ public class DbService {
         return bookRepository.save(book);
     }
 
-    public int getNumberOfCopies(final Book book) {
-        return bookRepository.countByBookCopies(book);
+    public long countCopiesPerTitle(Long id) {
+        return bookRepository.findById(id)
+                .map(Book::getCopies)
+                .orElse(new ArrayList<>())
+                .stream()
+                .filter(copy -> copy.getStatus().equals("AVAILABLE"))
+                .count();
     }
 
     public BookCopy saveBookCopy(final BookCopy bookCopy) {

@@ -4,6 +4,8 @@ import com.crud.library.domain.Reader;
 import com.crud.library.domain.ReaderDto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -11,14 +13,12 @@ public class ReaderMapper {
 
     public Reader mapToReader(final ReaderDto readerDto) {
         return new Reader(readerDto.getId(),
-                readerDto.getName(),
-                readerDto.getDateCreated());
+                readerDto.getName(), LocalDate.now());
     }
 
     public ReaderDto mapToReaderDto(final Reader reader) {
         return new ReaderDto(reader.getId(),
-                reader.getName(),
-                reader.getDateCreated());
+                reader.getName(), reader.getDateCreated());
     }
 
     public List<ReaderDto> mapToReaderDtoList(final List<Reader> readerList) {
