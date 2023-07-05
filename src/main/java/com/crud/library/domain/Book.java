@@ -20,9 +20,7 @@ public class Book {
     private String title;
     @Column(name = "AUTHOR")
     private String author;
-    @Column(
-            name = "ISSUE_YEAR"
-    )
+    @Column(name = "ISSUE_YEAR")
     private int issueYear;
 
     @OneToMany(

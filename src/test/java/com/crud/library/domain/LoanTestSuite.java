@@ -27,7 +27,7 @@ public class LoanTestSuite {
     void loanABookCopy() {
         //given
         Book book = new Book("Game of Thrones", "G. Martin", 1996);
-        BookCopy bookCopy = new BookCopy(book, String.valueOf(Status.AVAILABLE));
+        BookCopy bookCopy = new BookCopy(book, Status.AVAILABLE);
         Reader reader = new Reader("Regis", LocalDate.of(2018, 11, 13));
         Loan loan = new Loan(bookCopy, reader, LocalDate.now());
 
@@ -40,13 +40,13 @@ public class LoanTestSuite {
         long loanId = loan.getId();
 
         System.out.println("Status before: " + bookCopyRepository.findById(bookCopyId).get().getStatus());
-        bookCopyRepository.updateBookCopyStatus(bookCopyId, String.valueOf(Status.BORROWED));
+        bookCopyRepository.updateBookCopyStatus(bookCopyId, Status.BORROWED);
         System.out.println("Status after: " + bookCopyRepository.findById(bookCopyId).get().getStatus());
 
         Optional<BookCopy> optionalBookCopy = bookCopyRepository.findById(bookCopyId);
         Optional<Loan> optionalLoan = loanRepository.findById(loanId);
         assertTrue(optionalLoan.isPresent());
-        assertEquals(Status.BORROWED.name(), optionalBookCopy.get().getStatus());
+        assertEquals(Status.BORROWED, optionalBookCopy.get().getStatus());
 
     }
 
@@ -55,7 +55,7 @@ public class LoanTestSuite {
     void returnABookCopy() {
         //given
         Book book = new Book("Game of Thrones", "G. Martin", 1996);
-        BookCopy bookCopy = new BookCopy(book, String.valueOf(Status.BORROWED));
+        BookCopy bookCopy = new BookCopy(book, Status.BORROWED);
         Reader reader = new Reader("Regis", LocalDate.of(2018, 11, 13));
         Loan loan = new Loan(bookCopy, reader, LocalDate.of(2023, 6,10));
 
@@ -66,7 +66,7 @@ public class LoanTestSuite {
         //then
         long loanId = loan.getId();
         long bookCopyId = bookCopy.getId();
-        bookCopyRepository.updateBookCopyStatus(bookCopyId, Status.AVAILABLE.name());
+        bookCopyRepository.updateBookCopyStatus(bookCopyId, Status.AVAILABLE);
         loanRepository.setReturnDate(loanId, LocalDate.now());
         Optional<BookCopy> optionalBookCopy = bookCopyRepository.findById(bookCopyId);
         Optional<Loan> optionalLoan = loanRepository.findById(loanId);
@@ -75,6 +75,6 @@ public class LoanTestSuite {
 
         //then
         assertNotEquals(null, optionalLoan.get().getReturnDate());
-        assertEquals(Status.AVAILABLE.name(), optionalBookCopy.get().getStatus());
+        assertEquals(Status.AVAILABLE, optionalBookCopy.get().getStatus());
     }
 }

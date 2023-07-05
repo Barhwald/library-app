@@ -32,7 +32,7 @@ public class DbService {
                 .map(Book::getCopies)
                 .orElse(new ArrayList<>())
                 .stream()
-                .filter(copy -> copy.getStatus().equals("AVAILABLE"))
+                .filter(copy -> copy.getStatus().name().equals("AVAILABLE"))
                 .count();
     }
 
@@ -46,6 +46,14 @@ public class DbService {
 
     public List<Reader> getAllReaders() {
         return readerRepository.findAll();
+    }
+
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
+    public List<BookCopy> getAllCopies() {
+        return bookCopyRepository.findAll();
     }
 
     public Reader getReader(long id) throws ReaderNotFoundException {

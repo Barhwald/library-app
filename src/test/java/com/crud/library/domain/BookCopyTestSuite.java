@@ -31,7 +31,7 @@ public class BookCopyTestSuite {
     void saveBookCopy() {
         //given
         Book book = new Book("Forest and lumber", "G.Chapman", 2009);
-        BookCopy bookCopy = new BookCopy(book, String.valueOf(Status.AVAILABLE));
+        BookCopy bookCopy = new BookCopy(book, Status.AVAILABLE);
 
         //when
         bookCopyRepository.save(bookCopy);
@@ -47,7 +47,7 @@ public class BookCopyTestSuite {
     void changeBookCopyStatus() {
         //given
         Book book = new Book("The Hobbit", "J.R.R. Tolkien", 1960);
-        BookCopy bookCopy = new BookCopy(book, String.valueOf(Status.LOST));
+        BookCopy bookCopy = new BookCopy(book, Status.LOST);
 
         //when
         bookCopyRepository.save(bookCopy);
@@ -56,10 +56,10 @@ public class BookCopyTestSuite {
         long id = bookCopy.getId();
         System.out.println(id);
         System.out.println("Status before: " + bookCopyRepository.findById(id).get().getStatus());
-        bookCopyRepository.updateBookCopyStatus(id, String.valueOf(Status.BORROWED));
+        bookCopyRepository.updateBookCopyStatus(id, Status.BORROWED);
         System.out.println("Status after: " + bookCopyRepository.findById(id).get().getStatus());
         Optional<BookCopy> optionalBookCopy = bookCopyRepository.findById(id);
-        assertEquals(Status.BORROWED.name(), optionalBookCopy.get().getStatus());
+        assertEquals(Status.BORROWED, optionalBookCopy.get().getStatus());
 
         //cleanUp
         bookCopyRepository.deleteById(id);
@@ -70,13 +70,13 @@ public class BookCopyTestSuite {
     void checkHowManyBookCopiesAreAvailable() {
         //given
         Book book = new Book("Game of Thrones", "G. Martin", 1996);
-        BookCopy bookCopy1 = new BookCopy(book, String.valueOf(Status.AVAILABLE));
-        BookCopy bookCopy2 = new BookCopy(book, String.valueOf(Status.AVAILABLE));
-        BookCopy bookCopy3 = new BookCopy(book, String.valueOf(Status.DESTROYED));
-        BookCopy bookCopy4 = new BookCopy(book, String.valueOf(Status.LOST));
-        BookCopy bookCopy5 = new BookCopy(book, String.valueOf(Status.AVAILABLE));
-        BookCopy bookCopy6 = new BookCopy(book, String.valueOf(Status.BORROWED));
-        BookCopy bookCopy7 = new BookCopy(book, String.valueOf(Status.AVAILABLE));
+        BookCopy bookCopy1 = new BookCopy(book, Status.AVAILABLE);
+        BookCopy bookCopy2 = new BookCopy(book, Status.AVAILABLE);
+        BookCopy bookCopy3 = new BookCopy(book, Status.DESTROYED);
+        BookCopy bookCopy4 = new BookCopy(book, Status.LOST);
+        BookCopy bookCopy5 = new BookCopy(book, Status.AVAILABLE);
+        BookCopy bookCopy6 = new BookCopy(book, Status.BORROWED);
+        BookCopy bookCopy7 = new BookCopy(book, Status.AVAILABLE);
         book.getCopies().add(bookCopy1);
         book.getCopies().add(bookCopy2);
         book.getCopies().add(bookCopy3);

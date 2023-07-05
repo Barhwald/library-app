@@ -27,10 +27,13 @@ public class BookCopy {
     @JoinColumn(name = "BOOK_ID")
     private Book book;
     @Column(name = "STATUS")
-    private String status;
+    private Status status;
 
-    public BookCopy(Book book, String status) {
+    public BookCopy(Book book, Status status) {
         this.book = book;
         this.status = status;
+    }
+
+    public BookCopy(long id, Book book, Status status) {
     }
 }

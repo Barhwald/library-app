@@ -19,7 +19,7 @@ public class Reader {
     @Column(name = "NAME")
     private String name;
     @Column(name = "DATE_CREATED")
-    private LocalDate dateCreated;
+    private LocalDate dateCreated = LocalDate.now();
     @OneToMany(
             targetEntity = Loan.class,
             mappedBy = "reader",
@@ -31,6 +31,10 @@ public class Reader {
     public Reader(String name, LocalDate dateCreated) {
         this.name = name;
         this.dateCreated = dateCreated;
+    }
+
+    public Reader(String name) {
+        this.name = name;
     }
 
     public Reader(long id, String name, LocalDate dateCreated) {
