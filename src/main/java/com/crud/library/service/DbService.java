@@ -1,10 +1,9 @@
 package com.crud.library.service;
 
+import com.crud.library.controller.BookCopyNotAvailable;
+import com.crud.library.controller.BookCopyNotFoundException;
 import com.crud.library.controller.ReaderNotFoundException;
-import com.crud.library.domain.Book;
-import com.crud.library.domain.BookCopy;
-import com.crud.library.domain.Loan;
-import com.crud.library.domain.Reader;
+import com.crud.library.domain.*;
 import com.crud.library.repository.BookCopyRepository;
 import com.crud.library.repository.BookRepository;
 import com.crud.library.repository.LoanRepository;
@@ -27,7 +26,7 @@ public class DbService {
         return bookRepository.save(book);
     }
 
-    public long countCopiesPerTitle(Long id) {
+    public long countCopiesAvailable(Long id) {
         return bookRepository.findById(id)
                 .map(Book::getCopies)
                 .orElse(new ArrayList<>())
@@ -52,6 +51,14 @@ public class DbService {
         return bookRepository.findAll();
     }
 
+    public List<Loan> getAllLoans() {
+        return loanRepository.findAll();
+    }
+
+    public Book getBookWithId(long id) {
+        return bookRepository.findById(id).get();
+    }
+
     public List<BookCopy> getAllCopies() {
         return bookCopyRepository.findAll();
     }
@@ -59,7 +66,19 @@ public class DbService {
     public Reader getReader(long id) throws ReaderNotFoundException {
         return readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
     }
+
+    public BookCopy getBookCopy(long id) throws BookCopyNotFoundException {
+        return bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
+    }
+
     public Loan saveLoan(final Loan loan) {
         return loanRepository.save(loan);
+    }
+
+    public void updateBookCopyStatus(long id) throws BookCopyNotAvailable {
+        bookCopyRepository.findById(id)
+                .filter(bookCopy -> bookCopy.getStatus() == Status.AVAILABLE)
+                .orElseThrow(BookCopyNotAvailable::new)
+                .setStatus(Status.BORROWED);
     }
 }

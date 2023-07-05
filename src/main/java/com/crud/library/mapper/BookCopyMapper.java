@@ -3,14 +3,16 @@ package com.crud.library.mapper;
 import com.crud.library.repository.BookRepository;
 import com.crud.library.domain.BookCopy;
 import com.crud.library.domain.BookCopyDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class BookCopyMapper {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     public BookCopy mapToBookCopy(final BookCopyDto bookCopyDto) {
         return new BookCopy(bookCopyDto.getId(),

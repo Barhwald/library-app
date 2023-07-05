@@ -3,6 +3,7 @@ package com.crud.library.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity(name = "LOANS")
 public class Loan {
     @Id
@@ -32,4 +34,10 @@ public class Loan {
         this.loanDate = loanDate;
     }
 
+    public Loan(long id, Reader reader, LocalDate loanDate, LocalDate returnDate) {
+        this.id = id;
+        this.reader = reader;
+        this.loanDate = loanDate;
+        this.returnDate = returnDate;
+    }
 }

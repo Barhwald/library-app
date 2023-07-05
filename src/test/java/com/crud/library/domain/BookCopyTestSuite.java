@@ -99,7 +99,7 @@ public class BookCopyTestSuite {
         System.out.println();
 
         //then
-        long count = dbService.countCopiesPerTitle(id);
+        long count = dbService.countCopiesAvailable(id);
         long av = bookRepository.findById(id).get().getCopies().size();
         assertEquals(7, av);
         assertEquals(4, count);

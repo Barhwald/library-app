@@ -5,7 +5,6 @@ import com.crud.library.domain.BookDto;
 import com.crud.library.mapper.BookMapper;
 import com.crud.library.service.DbService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +18,23 @@ import java.util.List;
 public class BookController {
 
     private final DbService dbService;
-
     private final BookMapper bookMapper;
 
     @GetMapping
     public ResponseEntity<List<BookDto>> getBooks() {
         List<Book> books = dbService.getAllBooks();
         return ResponseEntity.ok(bookMapper.mapToBookDtoList(books));
+    }
+
+    @GetMapping(value = "{bookId}")
+    public ResponseEntity<BookDto> getBookWithId(@PathVariable Long bookId) {
+        Book book = dbService.getBookWithId(bookId);
+        return ResponseEntity.ok(bookMapper.mapToBookDto(book));
+    }
+
+    @GetMapping(value = "{bookId}/available")
+    public ResponseEntity<Long> getCopiesAvailable(@PathVariable Long bookId) {
+        return ResponseEntity.ok(dbService.countCopiesAvailable(bookId));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

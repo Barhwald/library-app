@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class LoanDto {
     private long id;
     private long readerId;
+    private long bookCopyId;
     private LocalDate loanDate;
     private LocalDate returnDate;
 }
